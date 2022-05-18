@@ -37,6 +37,7 @@ pipeline {
                     docker push $DOCKER_PREFIX --all-tags
                 '''
             }
+         }
 
             stage('deploy to k8s') {
             steps {
@@ -48,7 +49,6 @@ pipeline {
             }
         }
         
-        }
     }
 
 }
