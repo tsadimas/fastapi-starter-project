@@ -16,10 +16,7 @@ pipeline {
                     cp app/.env.example app/.env
                     docker-compose kill -s SIGINT
                     docker-compose up -d --build
-                    python3 -m venv favenv
-                    source favenv/bin/activate
-                    pip install -r requirements.txt
-                    pytest
+                    docker-compose exec fastapi pytest
                     docker-compose down --volumes
                 '''
             }
