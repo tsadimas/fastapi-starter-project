@@ -13,6 +13,13 @@ services:
     #   - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/foo
     env_file:
       - app/.env
+    healthcheck:
+      test:
+        - CMD
+        - wget -S --spider http://localhost:8000/docs
+      interval: 30s
+      timeout: 30s
+      retries: 3
     depends_on:
       db:
         condition: service_healthy
