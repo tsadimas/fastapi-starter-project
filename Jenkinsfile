@@ -17,6 +17,7 @@ pipeline {
                     docker-compose kill -s SIGINT
                     docker-compose up -d --build
                     while ! docker-compose exec db pg_isready -U postgres; do sleep 1; done
+                    sleep 30
                     docker-compose exec fastapi pytest
                     docker-compose down --volumes
                 '''
