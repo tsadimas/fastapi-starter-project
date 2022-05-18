@@ -5,8 +5,6 @@ pipeline {
             DOCKER_USER = 'tsadimas'
             DOCKER_SERVER = 'ghcr.io'
             DOCKER_PREFIX = 'ghcr.io/tsadimas/pms8-fastapi'
-            // HEAD_COMMIT=$(git rev-parse --short HEAD)
-            // TAG=$HEAD_COMMIT-$BUILD_ID
         }
         
     script {
