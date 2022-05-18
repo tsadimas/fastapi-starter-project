@@ -49,3 +49,5 @@ spec:
             items:
               - key: init.sql
                 path: start.sql
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
