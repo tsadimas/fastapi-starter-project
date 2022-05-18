@@ -37,6 +37,16 @@ pipeline {
                     docker push $DOCKER_PREFIX --all-tags
                 '''
             }
+
+            stage('deploy to k8s') {
+            steps {
+                sh '''
+                    kubectl config use-context microk8s
+                    cd k8s/fapi
+                    ls *.yaml | while read fl ; do kubectl apply -f $fl; done
+                '''
+            }
+        }
         
         }
     }
