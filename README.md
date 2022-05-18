@@ -32,12 +32,36 @@ pre-commit install --install-hooks
 
 ## Container registry
 
+# docker registry
+## Github Packages
+* create personal access token (settings --> Developer settings -- > Persnola Access Tokens)
+* tag an image
+```bash
+docker build -t ghcr.io/tsadimas/pms8-fastapi:latest -f fastapi.Dockerfile .
+```
+* login to docker registry
+```bash
+cat ~/github-image-repo.txt | docker login ghcr.io -u tsadimas --password-stdin
+```
+* push image
+```bash
+docker push ghcr.io/tsadimas/pms8-fastapi:latest
+```
 
+## create docker login secret
+* create <AUTH> from the command
+```bash
+echo <USER>:<TOKEN> | base64
+```
+* create kubernetes secret
+```bash
+echo '{"auths":{"ghcr.io":{"auth":"<AUTH>"}}}' | kubectl create secret generic dockerconfigjson-github-com --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=/dev/stdin
+```
 
 Links
 * [pre-commit: A framework for managing and maintaining multi-language pre-commit hooks.](https://pre-commit.com/)
 * [Github: Working with the Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
-
+* [Personla access toksns](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 # Tests
 
