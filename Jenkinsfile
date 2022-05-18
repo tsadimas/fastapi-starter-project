@@ -42,9 +42,11 @@ pipeline {
             stage('deploy to k8s') {
             steps {
                 sh '''
+                    HEAD_COMMIT=$(git rev-parse --short HEAD)
+                    TAG=$HEAD_COMMIT-$BUILD_ID
                     kubectl config use-context microk8s
-                    cd k8s/fapi
-                    ls *.yaml | while read fl ; do kubectl apply -f $fl; done
+                    kubectl set image deployment/fastapi-deployment fastapi=$DOCKER_PREFIX:$TAG
+
                 '''
             }
         }
