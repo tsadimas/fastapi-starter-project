@@ -34,7 +34,7 @@ pipeline {
                 
                 sh '''
                     echo $DOCKER_TOKEN | docker login $DOCKER_SERVER -u $DOCKER_USER --password-stdin
-                    docker push ghcr.io/tsadimas/myfastapi --all-tags
+                    docker push $DOCKER_PREFIX --all-tags
                 '''
             }
         
