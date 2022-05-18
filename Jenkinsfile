@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('clone') {
-            steps {
-               sh '''
-                    echo 'Clone'
-               '''
-            }
-        }
         stage('test') {
             steps {
                 sh '''
@@ -19,6 +12,7 @@ pipeline {
                     source favenv/bin/activate
                     pip install -r requirements.txt
                     pytest
+                    docker-compose down --volumes
                 '''
             }
         }
