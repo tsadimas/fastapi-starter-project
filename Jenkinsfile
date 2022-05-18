@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh '''
                     cp app/.env.example app/.env
-                    docker-compose down --volumes
+                    docker-compose kill -s SIGINT
                     docker-compose up -d --build
                     python3 -m venv favenv
                     source favenv/bin/activate
