@@ -7,18 +7,25 @@ pipeline {
             DOCKER_PREFIX = 'ghcr.io/tsadimas/pms8-fastapi'
         }
         
+    parameters {
+            string(name: 'HEAD_COMMIT', defaultValue: '')
+            string(name: 'TAG', defaultValue: '')            
+        }
 
 
     stages {
 
-        stage('set variables') {
+        stage('create vars') {
             steps {
                 sh '''
-                    HEAD_COMMIT=$(git rev-parse --short HEAD)
-                    TAG=$HEAD_COMMIT-$BUILD_ID
+                    head_commit =  sh (script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    env.HEAD_COMMIT = head_commit
+                    tag =  sh (script: '$HEAD_COMMIT-$BUILD_ID', returnStdout: true).trim()
+                    env.TAG = tag
                 '''
             }
         }
+        
         stage('test') {
             steps {
                 sh '''
@@ -38,6 +45,7 @@ pipeline {
 
             steps {
                 sh '''
+                  
                     docker build --rm -t $DOCKER_PREFIX:$TAG -t $DOCKER_PREFIX:latest -f fastapi.Dockerfile .  
                 '''
 
