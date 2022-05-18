@@ -7,10 +7,7 @@ pipeline {
             DOCKER_PREFIX = 'ghcr.io/tsadimas/pms8-fastapi'
         }
         
-    script {
-        env.HEAD_COMMIT = sh script: 'git rev-parse --short HEAD'
-        env.TAG = sh script: '$HEAD_COMMIT-$BUILD_ID'
-    }
+
 
     stages {
         stage('test') {
@@ -32,7 +29,8 @@ pipeline {
 
             steps {
                 sh '''
-                  
+                    HEAD_COMMIT=$(git rev-parse --short HEAD)
+                    TAG=$HEAD_COMMIT-$BUILD_ID
                     docker build --rm -t $DOCKER_PREFIX:$TAG -t $DOCKER_PREFIX:latest -f fastapi.Dockerfile .  
                 '''
 
@@ -47,6 +45,8 @@ pipeline {
             stage('deploy to k8s') {
             steps {
                 sh '''
+                    HEAD_COMMIT=$(git rev-parse --short HEAD)
+                    TAG=$HEAD_COMMIT-$BUILD_ID
                     kubectl config use-context microk8s
                     kubectl set image deployment/fastapi-deployment fastapi=$DOCKER_PREFIX:$TAG
 
