@@ -5,10 +5,14 @@ pipeline {
             DOCKER_USER = 'tsadimas'
             DOCKER_SERVER = 'ghcr.io'
             DOCKER_PREFIX = 'ghcr.io/tsadimas/pms8-fastapi'
-            HEAD_COMMIT=$(git rev-parse --short HEAD)
-            TAG=$HEAD_COMMIT-$BUILD_ID
+            // HEAD_COMMIT=$(git rev-parse --short HEAD)
+            // TAG=$HEAD_COMMIT-$BUILD_ID
         }
         
+    script {
+        env.HEAD_COMMIT = sh script: 'git rev-parse --short HEAD'
+        env.TAG = sh script: '$HEAD_COMMIT-$BUILD_ID'
+    }
 
     stages {
         stage('test') {
