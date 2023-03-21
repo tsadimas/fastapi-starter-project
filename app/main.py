@@ -1,10 +1,13 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Security
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
+from pydantic import Json
 
 from app.db import get_session, init_db
 from app.models import Song, SongCreate
+
+from app.deps.auth import get_auth
 
 
 app = FastAPI()
@@ -29,7 +32,7 @@ async def get_songs(session: AsyncSession = Depends(get_session)):
 
 
 @app.post("/songs")
-async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session)):
+async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session), identity: Json = Security(get_auth)):
     song = Song(name=song.name, artist=song.artist)
     session.add(song)
     await session.commit()

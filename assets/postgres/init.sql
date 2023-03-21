@@ -1,2 +1,1 @@
-create database a1;
-create database a2;
+create database keycloak;
