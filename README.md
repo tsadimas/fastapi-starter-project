@@ -34,7 +34,7 @@ pre-commit install --install-hooks
 
 # docker registry
 ## Github Packages
-* create personal access token (settings --> Developer settings -- > Persnola Access Tokens)
+* create personal access token (settings --> Developer settings -- > Persnoal Access Tokens)
 * tag an image
 ```bash
 docker build -t ghcr.io/tsadimas/pms8-fastapi:latest -f fastapi.Dockerfile .
@@ -72,3 +72,18 @@ pytest
 
 Links
 * [tavern-testing](https://tavern.readthedocs.io/en/latest/examples.html)
+
+
+# Keycloak
+
+* create a realm, e.g. hulk
+* create a client , e.g. backend-client
+* set root url, home url to http://fastapi:8000
+* set valid redirects URIs to http://fastapi:8000/*
+* in capacity config enable Client authentication
+* in credentials tab get client secret
+* get public key from http://keycloak:8080/realms/hulk and store it on a file
+* create a user in realm
+
+* Links
+* [intro to keycloak](http://www.mastertheboss.com/keycloak/introduction-to-keycloak/)
