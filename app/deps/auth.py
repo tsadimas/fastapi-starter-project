@@ -36,6 +36,7 @@ async def get_idp_public_key():
 
 async def get_auth(security_scopes: SecurityScopes, token: str = Security(oauth2_scheme)) -> Json:
     try:
+        print('decode token')
         payload = keycloak_openid.decode_token(
             token,
             key=await get_idp_public_key(),
@@ -45,8 +46,10 @@ async def get_auth(security_scopes: SecurityScopes, token: str = Security(oauth2
                 'exp': True
             }
         )
+        print(payload)
         payload_scopes = payload['realm_access']['roles']
     except Exception as e:
+        print(e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=str(e),  # "Invalid authentication credentials",
