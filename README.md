@@ -67,7 +67,7 @@ Links
 
 run
 ```bash
-pytest
+tavern-ci tests
 ```
 
 Links
