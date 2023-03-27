@@ -43,7 +43,7 @@ async def get_artists(session: AsyncSession = Depends(get_session)):
     artists = result.scalars().all()
     return artists
 
-@app.post("artists")
+@app.post("/artists")
 async def add_artist(artist: ArtistCreate, session: AsyncSession = Depends(get_session)):
     artist = Artist(name=artist.name, surname=artist.surname)
     session.add(artist)
