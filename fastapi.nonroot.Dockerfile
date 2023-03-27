@@ -1,5 +1,7 @@
 FROM python:3.10-alpine3.17
 
+RUN apk update && apk add gcc  libc-dev
+
 WORKDIR /usr/data
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -12,6 +14,7 @@ ENV PATH=$PATH:/usr/data/.local/bin
 COPY ./requirements.txt .
 
 COPY ./app app
+COPY ./tests tests
 RUN pip install -r requirements.txt
 
 RUN chown -R appuser:appuser /usr/data

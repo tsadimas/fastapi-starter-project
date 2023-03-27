@@ -48,6 +48,11 @@ cat ~/github-image-repo.txt | docker login ghcr.io -u tsadimas --password-stdin
 docker push ghcr.io/tsadimas/pms8-fastapi:latest
 ```
 
+## Useful
+```bash
+truncate table artist restart identity cascade;
+```
+
 ## create docker login secret
 * create <AUTH> from the command
 ```bash
@@ -68,6 +73,10 @@ Links
 run
 ```bash
 tavern-ci tests
+```
+or
+```bash
+docker-compose exec fastapi tavern-ci tests
 ```
 
 Links

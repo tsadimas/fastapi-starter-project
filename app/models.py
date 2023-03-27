@@ -13,11 +13,10 @@ class ArtistCreate(ArtistBase):
     pass
 class SongBase(SQLModel):
     name: str
-  
+    artist_id: Optional[int] = Field(default=None, foreign_key="artist.id")
 
 class Song(SongBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    artist_id: Optional[int] = Field(default=None, foreign_key="artist.id")
     artist: Optional[Artist] = Relationship(back_populates="songs")
 
 

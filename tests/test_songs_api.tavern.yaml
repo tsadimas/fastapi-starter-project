@@ -1,0 +1,32 @@
+---
+# Every test file has one or more tests...
+test_name: Test Artists
+
+# ...and each test has one or more stages (e.g. an HTTP request)
+stages:
+  - name: test songs endpoint
+
+    request:
+      url: http://localhost:8000/songs
+      method: GET
+
+    response:
+      status_code: 200
+      json:
+        []
+
+  - name: test add an artist
+
+    request:
+      url: http://localhost:8000/songs
+      method: POST
+      json:
+        name: "Mi me rotas"
+        artist_id: 1
+
+    response:
+      status_code: 200
+      json:
+        id: 1
+        name: "Mi me rotas"
+        artist_id: 1

@@ -30,7 +30,7 @@ async def get_songs(session: AsyncSession = Depends(get_session)):
 
 @app.post("/songs")
 async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session)):
-    song = Song(name=song.name, artist=song.artist)
+    song = Song(name=song.name, artist_id=song.artist_id)
     session.add(song)
     await session.commit()
     await session.refresh(song)
