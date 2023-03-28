@@ -46,3 +46,26 @@ stages:
           artist_id: 1
         }
         ]
+
+  - name: test get artists
+
+    request:
+      url: http://localhost:8000/artists
+      method: GET
+
+    response:
+      status_code: 200
+      json:
+        [ {
+          id: 1,
+          name: "Manos",
+          surname: "Loizos",
+          songs: [
+            {
+              "artist_id": 1,
+              "id": 1,
+              "name": "Mi me rotas"
+          }
+          ]
+        }
+        ]

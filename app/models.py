@@ -15,6 +15,7 @@ class ArtistCreate(ArtistBase):
     pass
 
 class ArtistwithSongs(ArtistBase):
+    id: Optional[int] = None
     songs: List["Song"] = []
 
 class SongBase(SQLModel):

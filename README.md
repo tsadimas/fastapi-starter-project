@@ -81,3 +81,10 @@ docker-compose exec fastapi tavern-ci tests
 
 Links
 * [tavern-testing](https://tavern.readthedocs.io/en/latest/examples.html)
+
+
+* Useful
+
+```bash
+truncate artist restart identity cascade;
+```

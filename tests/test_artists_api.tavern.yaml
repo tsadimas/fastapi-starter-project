@@ -54,6 +54,7 @@ stages:
         [ {
           id: 1,
           name: "Manos",
-          surname: "Loizos"
+          surname: "Loizos",
+          songs: []
         }
         ]
