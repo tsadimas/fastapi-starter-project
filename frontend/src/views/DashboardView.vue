@@ -23,7 +23,7 @@
             <h1>Songs</h1>
             <hr /><br />
             <div v-if="songs.length">
-                <div v-for="song in songs" :key="song.id" class="notes">
+                <div v-for="song in songs" :key="song.id" >
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <ul>
