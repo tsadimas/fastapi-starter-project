@@ -45,6 +45,15 @@ services:
     volumes:
       - 'pgdata:/var/lib/postgresql/data/'
       - './assets/postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql'
+
+  web:
+    image: nginx:latest
+    volumes:
+      - ./assets/nginx/nginx.http.config:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+    -  fastapi
 volumes:
   pgdata:
 
