@@ -34,7 +34,10 @@ pre-commit install --install-hooks
 
 # docker registry
 ## Github Packages
-* create personal access token (settings --> Developer settings -- > Persnola Access Tokens)
+* create personal access token (settings --> Developer settings -- > Personal Access Tokens), select classic
+* select write:packages
+* save the token to a file
+* to see packages, go to your github profile and select tab Packages
 * tag an image
 ```bash
 docker build -t ghcr.io/tsadimas/pms8-fastapi:latest -f fastapi.Dockerfile .
