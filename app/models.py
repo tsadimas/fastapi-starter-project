@@ -1,6 +1,8 @@
 from sqlmodel import SQLModel, Field, Relationship
-from typing import Optional, List
+from typing import Optional, List, ForwardRef
 
+
+ArtistwithSongs = ForwardRef('ArtistwithSongs')
 class ArtistBase(SQLModel):
     name: str
     surname: str
@@ -11,6 +13,10 @@ class Artist(ArtistBase, table=True):
 
 class ArtistCreate(ArtistBase):
     pass
+
+class ArtistwithSongs(ArtistBase):
+    songs: List["Song"] = []
+
 class SongBase(SQLModel):
     name: str
     artist_id: Optional[int] = Field(default=None, foreign_key="artist.id")
@@ -24,3 +30,4 @@ class SongCreate(SongBase):
     pass
 
 
+ArtistwithSongs.update_forward_refs()

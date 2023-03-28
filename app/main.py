@@ -4,7 +4,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 
 from app.db import get_session, init_db
-from app.models import Song, SongCreate, ArtistCreate, Artist
+from app.models import Song, SongCreate, ArtistCreate, Artist, ArtistwithSongs
+from sqlalchemy.orm import selectinload, noload
+
 
 
 app = FastAPI()
@@ -37,9 +39,9 @@ async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session
     return song
 
 
-@app.get("/artists", response_model=list[Artist])
+@app.get("/artists", response_model=list[ArtistwithSongs])
 async def get_artists(session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(Artist))
+    result = await session.execute(select(Artist).options(selectinload(Artist.songs)))
     artists = result.scalars().all()
     return artists
 
