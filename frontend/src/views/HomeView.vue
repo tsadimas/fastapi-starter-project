@@ -3,7 +3,7 @@
     <p>This site is built with FastAPI and Vue.</p>
 
     <div id="logout">
-      <p id="logout">Click <a href="/dashboard">here</a> to view all notes.</p>
+      <p id="logout">Click <a href="/dashboard">here</a> to view all songs.</p>
     </div>
   </section>
 </template>
