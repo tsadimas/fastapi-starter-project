@@ -7,7 +7,7 @@ from app.db import get_session, init_db
 from app.models import Song, SongCreate, ArtistCreate, Artist, ArtistwithSongs
 from sqlalchemy.orm import selectinload, noload
 
-
+from app.routes import artist, song
 
 app = FastAPI()
 
@@ -23,32 +23,8 @@ async def pong():
     return {"ping": "pong!"}
 
 
-@app.get("/songs", response_model=list[Song])
-async def get_songs(session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(Song))
-    songs = result.scalars().all()
-    return songs
+app.include_router(song.router, prefix='/songs',
+                   tags=['Songs'])
 
-
-@app.post("/songs")
-async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session)):
-    song = Song(name=song.name, artist_id=song.artist_id)
-    session.add(song)
-    await session.commit()
-    await session.refresh(song)
-    return song
-
-
-@app.get("/artists", response_model=list[ArtistwithSongs])
-async def get_artists(session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(Artist).options(selectinload(Artist.songs)))
-    artists = result.scalars().all()
-    return artists
-
-@app.post("/artists")
-async def add_artist(artist: ArtistCreate, session: AsyncSession = Depends(get_session)):
-    artist = Artist(name=artist.name, surname=artist.surname)
-    session.add(artist)
-    await session.commit()
-    await session.refresh(artist)
-    return artist
+app.include_router(artist.router, prefix='/artists',
+                   tags=['Artists'])

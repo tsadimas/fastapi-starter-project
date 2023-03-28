@@ -18,7 +18,7 @@ stages:
   - name: test artists endpoint
 
     request:
-      url: http://localhost:8000/artists
+      url: http://localhost:8000/artists/
       method: GET
 
     response:
@@ -29,7 +29,7 @@ stages:
   - name: test add an artist
 
     request:
-      url: http://localhost:8000/artists
+      url: http://localhost:8000/artists/
       method: POST
       json:
         name: "Manos"
@@ -45,7 +45,7 @@ stages:
   - name: test get artists
 
     request:
-      url: http://localhost:8000/artists
+      url: http://localhost:8000/artists/
       method: GET
 
     response:

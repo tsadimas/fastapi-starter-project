@@ -7,7 +7,7 @@ stages:
   - name: test songs endpoint
 
     request:
-      url: http://localhost:8000/songs
+      url: http://localhost:8000/songs/
       method: GET
 
     response:
@@ -18,7 +18,7 @@ stages:
   - name: test add a song
 
     request:
-      url: http://localhost:8000/songs
+      url: http://localhost:8000/songs/
       method: POST
       json:
         name: "Mi me rotas"
@@ -34,7 +34,7 @@ stages:
   - name: test get songs
 
     request:
-      url: http://localhost:8000/songs
+      url: http://localhost:8000/songs/
       method: GET
 
     response:
@@ -50,7 +50,7 @@ stages:
   - name: test get artists
 
     request:
-      url: http://localhost:8000/artists
+      url: http://localhost:8000/artists/
       method: GET
 
     response:
