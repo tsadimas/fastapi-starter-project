@@ -17,6 +17,12 @@ async def get_songs(session: AsyncSession = Depends(get_session)):
     return songs
 
 
+@router.get("/{song_id}", response_model=Song)
+async def get_songs(song_id: int, session: AsyncSession = Depends(get_session)):
+    result = await session.execute(select(Song).where(Song.id == song_id))
+    song = result.scalars().first()
+    return song
+
 @router.post("/")
 async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session)):
     song = Song(name=song.name, artist_id=song.artist_id)

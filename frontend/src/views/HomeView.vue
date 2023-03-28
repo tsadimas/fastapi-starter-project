@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <section>
+    <p>This site is built with FastAPI and Vue.</p>
+
+    <div id="logout">
+      <p id="logout">Click <a href="/dashboard">here</a> to view all notes.</p>
+    </div>
+  </section>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+});
 </script>
