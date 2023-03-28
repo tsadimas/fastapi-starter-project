@@ -88,3 +88,9 @@ Links
 ```bash
 truncate artist restart identity cascade;
 ```
+
+
+# FrontEnd
+
+https://testdriven.io/blog/developing-a-single-page-app-with-fastapi-and-vuejs/
+

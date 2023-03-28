@@ -46,6 +46,15 @@ services:
       - 'pgdata:/var/lib/postgresql/data/'
       - './assets/postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql'
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: front.Dockerfile
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - 8080:8080
   web:
     image: nginx:latest
     volumes:

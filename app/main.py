@@ -6,10 +6,19 @@ from typing import List
 from app.db import get_session, init_db
 from app.models import Song, SongCreate, ArtistCreate, Artist, ArtistwithSongs
 from sqlalchemy.orm import selectinload, noload
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes import artist, song
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
