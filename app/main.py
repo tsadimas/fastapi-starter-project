@@ -5,13 +5,30 @@ from typing import List
 from pydantic import Json
 
 from app.db import get_session, init_db
-from app.models import Song, SongCreate
+from app.models import Song, SongCreate, ArtistCreate, Artist, ArtistwithSongs
+from sqlalchemy.orm import selectinload, noload
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.deps.auth import get_auth
 
+from app.routes import artist, song
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:8080",
+    "https://localhost",
+    "http://frontend:8080",
+    "https://frontend",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 async def on_startup():
@@ -24,17 +41,8 @@ async def pong():
     return {"ping": "pong!"}
 
 
-@app.get("/songs", response_model=list[Song])
-async def get_songs(session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(Song))
-    songs = result.scalars().all()
-    return [Song(name=song.name, artist=song.artist, id=song.id) for song in songs]
+app.include_router(song.router, prefix='/songs',
+                   tags=['Songs'])
 
-
-@app.post("/songs")
-async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session), identity: Json = Security(get_auth)):
-    song = Song(name=song.name, artist=song.artist)
-    session.add(song)
-    await session.commit()
-    await session.refresh(song)
-    return song
+app.include_router(artist.router, prefix='/artists',
+                   tags=['Artists'])

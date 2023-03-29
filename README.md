@@ -48,6 +48,11 @@ cat ~/github-image-repo.txt | docker login ghcr.io -u tsadimas --password-stdin
 docker push ghcr.io/tsadimas/pms8-fastapi:latest
 ```
 
+## Useful
+```bash
+truncate table artist restart identity cascade;
+```
+
 ## create docker login secret
 * create <AUTH> from the command
 ```bash
@@ -67,7 +72,11 @@ Links
 
 run
 ```bash
-pytest
+tavern-ci tests
+```
+or
+```bash
+docker-compose exec fastapi tavern-ci tests
 ```
 
 Links
@@ -87,3 +96,14 @@ Links
 
 * Links
 * [intro to keycloak](http://www.mastertheboss.com/keycloak/introduction-to-keycloak/)
+* Useful
+
+```bash
+truncate artist restart identity cascade;
+```
+
+
+# FrontEnd
+
+https://testdriven.io/blog/developing-a-single-page-app-with-fastapi-and-vuejs/
+
