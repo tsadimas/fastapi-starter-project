@@ -9,8 +9,8 @@ import store from './store';
 const app = createApp(App);
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:8000/';  // the FastAPI backend
-
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
+console.log(process.env.VUE_APP_BASE_URL);
 app.use(router);
 app.use(store);
 app.mount("#app");

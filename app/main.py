@@ -12,14 +12,20 @@ from app.routes import artist, song
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:8080",
+    "https://localhost",
+    "http://frontend:8080",
+    "https://frontend",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.on_event("startup")
 async def on_startup():
