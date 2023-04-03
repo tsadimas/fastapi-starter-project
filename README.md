@@ -95,6 +95,8 @@ Links
 * get public key from http://keycloak:8080/realms/hulk and store it on a file
 * create a user in realm
 
+![Alt text](assets/images/backend-client-settings.png?raw=true "Title")
+
 ```bash
 curl --location --request POST 'http://keycloak:8080/realms/hulk/protocol/openid-connect/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -113,6 +115,17 @@ curl --location --request POST 'http://fastapi:8000/artists' \
 }'
 
 ```
+
+### front-end client
+* create a client , e.g. frontend-client
+* 
+
+
+![Alt text](assets/images/frontend-client-settings.png?raw=true "Title")
+
+https://davidtruxall.com/secure-a-vue-js-app-with-keycloak/
+https://github.com/baloise/vue-keycloak
+
 
 
 * Links
