@@ -20,34 +20,5 @@ spec:
           envFrom:
             - configMapRef:
                 name: fastapi-config
-          env:
-            - name: MYPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysecret
-                  key: mypassord
-          volumeMounts:
-            - name: data
-              mountPath: /data
-            - name: sqlvolume
-              mountPath: "/sql"
-              readOnly: true
-      initContainers:
-        - name: init-fastapi
-          image: busybox
-          command: ['sh', '-c', 'addgroup --gid 101 appuser && adduser --uid 100 -D -G appuser appuser && chown -R appuser:appuser /data ']
-          volumeMounts:
-            - name: data
-              mountPath: /data
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: fastapidata
-        - name: sqlvolume
-          secret:
-            secretName: sqlfilesecret
-            items:
-              - key: init.sql
-                path: start.sql
       imagePullSecrets:
-        - name: dockerconfigjson-github-com
+        - name: registry-credentials

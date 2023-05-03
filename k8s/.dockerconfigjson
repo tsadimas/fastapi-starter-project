@@ -1,0 +1,10 @@
+{
+    "auths": {
+        "https://ghcr.io":{
+            "username":"tsadimas",
+            "password":"<TOKEN>",
+            "email":"tsadimas@hua.gr",
+            "auth":"<ENCODED_USER_TOKEN>"
+    	}
+    }
+}

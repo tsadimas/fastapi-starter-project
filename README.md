@@ -57,20 +57,48 @@ truncate table artist restart identity cascade;
 ```
 
 ## create docker login secret
-* create <AUTH> from the command
+
+* create a .dockerconfigjson file, like this
+```json
+{
+    "auths": {
+        "https://ghcr.io":{
+            "username":"REGISTRY_USERNAME",
+            "password":"REGISTRY_TOKEN",
+            "email":"REGISTRY_EMAIL",
+            "auth":"BASE_64_BASIC_AUTH_CREDENTIALS"
+    	}
+    }
+}
+```
+
+
+* create <BASE_64_BASIC_AUTH_CREDENTIALS> from the command
 ```bash
-echo <USER>:<TOKEN> | base64
+echo -n <USER>:<TOKEN> | base64
 ```
 * create kubernetes secret
-```bash
-echo '{"auths":{"ghcr.io":{"auth":"<AUTH>"}}}' | kubectl create secret generic dockerconfigjson-github-com --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=/dev/stdin
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-credentials
+  namespace: default
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: BASE_64_ENCODED_DOCKER_FILE
 ```
+where BASE_64_ENCODED_DOCKER_FILE is
+```bash
+cat .dockerconfigjson | base64 -w 0
+```
+
 
 Links
 * [pre-commit: A framework for managing and maintaining multi-language pre-commit hooks.](https://pre-commit.com/)
 * [Github: Working with the Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
-* [Personla access toksns](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-
+* [Personal access toksns](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+* [Using Gitlab Private Registry with Kubernetes](https://chris-vermeulen.com/using-gitlab-registry-with-kubernetes/)
 # Tests
 
 run
