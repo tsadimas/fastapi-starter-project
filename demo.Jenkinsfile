@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                     cp app/.env.example app/.env
-                    docker-compose -d --build
+                    docker-compose up -d --build
                     docker-compose exec fastapi tavern-ci tests
                 '''
             }
