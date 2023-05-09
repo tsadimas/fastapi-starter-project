@@ -4,12 +4,12 @@ pipeline {
     stages {
 
         stage('Clone') {
-            step {
+            steps {
                 git branch: 'main', url: 'git@github.com:tsadimas/fastapi-starter-project.git'
             }
         }
         stage('Test') {
-            step {
+            steps {
                 sh '''
                     cp app/.env.example app/.env
                     docker-compose -d --build
