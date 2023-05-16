@@ -14,7 +14,7 @@ pipeline {
                     cp app/.env.example app/.env
                     docker-compose down --volumes
                     docker-compose up -d --build
-                    docker-compose exec fastapi tavern-ci tests
+                    docker-compose exec -T fastapi tavern-ci tests
                 '''
             }
         }
