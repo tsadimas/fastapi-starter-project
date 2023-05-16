@@ -16,8 +16,8 @@ pipeline {
                     cp app/.env.example app/.env
                     docker-compose kill -s SIGINT
                     docker-compose up -d --build
-                    while ! docker-compose exec fastapi wget -S --spider http://localhost:8000/docs ; do sleep 1; done
-                    docker-compose exec fastapi tavern-ci tests
+                    while ! docker-compose -T exec fastapi wget -S --spider http://localhost:8000/docs ; do sleep 1; done
+                    docker-compose exec -T fastapi tavern-ci tests
                     docker-compose down --volumes
                 '''
             }
