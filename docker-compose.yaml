@@ -91,9 +91,9 @@ services:
       dockerfile: front.Dockerfile
     volumes:
       - './frontend:/app'
-      # - '/app/node_modules'
+      - '/app/node_modules'
     ports:
-      - 9000:9000
+      - 9000:8080
   web:
     image: nginx:latest
     volumes:
