@@ -16,3 +16,6 @@ project/media
 
 
 .pytest_cache
+
+.idea/
+.vscode/
