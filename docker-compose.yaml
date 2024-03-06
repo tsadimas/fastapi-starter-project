@@ -48,7 +48,7 @@ services:
       - './assets/postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql'
 
   keycloak:
-    image: 'quay.io/keycloak/keycloak:21.0'
+    image: 'quay.io/keycloak/keycloak:24.0'
     environment:
         DB_VENDOR: POSTGRES
         DB_ADDR: db
@@ -63,10 +63,13 @@ services:
         KEYCLOAK_ADMIN_PASSWORD: admin
         PROXY_ADDRESS_FORWARDING: 'true'
         KEYCLOAK_LOGLEVEL: DEBUG
+    volumes:
+      - ./assets/keycloak:/opt/keycloak/data/import:ro
     entrypoint:
       [
         "/opt/keycloak/bin/kc.sh",
         "start",
+        "--import-realm",
         "--optimized",
         "--http-enabled=true",
         "--hostname-strict-https=false",
